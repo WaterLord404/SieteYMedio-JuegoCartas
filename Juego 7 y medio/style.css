@@ -1,0 +1,73 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    background-color: #ffffff;
+   
+}
+
+header{
+    left: 50%;
+    position: fixed;
+    align-content: center;
+    justify-content: center;
+    transform: translate(-50%);
+}
+
+header button{
+    display: block;
+    width: 100%;
+    font-family: "Lucida Console", Monaco, monospace;
+
+}
+
+.tablero{
+    background-color: rgba(20, 220, 30, 0.424);
+    margin-top: 2%;
+}
+
+.caja{
+    width: 50%;
+    float: left;
+    display: flex;
+    flex-flow: column wrap;
+    text-align: center;
+    justify-content: 20 ;
+}
+
+.puntos{
+    font-family: "Lucida Console", Monaco, monospace;
+}
+
+.carta{
+    margin: 10%;
+}
+
+.cartas_list img{
+    width: 10%;
+}
+
+.resul{
+    top: 50%;
+    left: 50%;
+    width: 30%;
+    height: 40%;
+    background-color: rgb(0, 0, 0);
+    position: fixed;
+    transform: translate(-50%, -50%);
+    display: flex;
+    border-radius: 20px;
+    font-size: 200%;
+    font-family: "Lucida Console", Monaco, monospace;
+    align-items: center;
+    justify-content: center;
+    color: white;
+}
+
+.hidden{
+    display: none;
+}
+
+

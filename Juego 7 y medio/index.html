@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Juego del 7 y medio</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <header>
+        <div>
+            <button id="next_card" class="boton">Pedir carta</button>
+            <button id="end_turn" class="boton hidden">Acabar turno</button>
+            <button onClick="window.location.reload()" id="reset" class="boton hidden">Jugar de nuevo</button>
+        </div>
+
+    </header>
+
+    <div class="tablero" id="tablero">
+        <div class="resul hidden" id="resul">
+        </div>
+
+        <div class="caja">
+            <div id="puntosUser" class="puntos">
+                Puntos: 0
+            </div>
+
+            <div id="carta" class="carta">
+                <img src="" id="CartaCentroUser">
+            </div>
+
+            <div id="cartas_list_user" class="cartas_list">
+
+            </div>
+        </div>
+
+        <div class="caja">
+            <div id="puntosCpu" class="puntos">
+                Puntos: 0
+            </div>
+
+            <div id="carta" class="carta">
+                <img src="" id="CartaCentroCpu">
+            </div>
+
+            <div id="cartas_list_cpu" class="cartas_list">
+
+
+            </div>
+        </div>
+
+    </div>
+
+</body>
+
+<script src="app.js"></script>
+
+</html>
