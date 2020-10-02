@@ -89,11 +89,16 @@ let end_turn_button = document.getElementById("end_turn");
 next_card_button.addEventListener("click", () => {
 
     //Desoculto el boton de terminar turno
-    end_turn_button.classList.remove("hidden");
+    if (end_turn_button.className == "boton hidden") {
+        end_turn_button.classList.remove("hidden");
+    }
     //carta aleatoria
     let card = random_card();
+
     //dibuja la carta
-    drawCardUser(card)
+    let nuevaCarta = document.getElementById("CartaCentroUser");
+    let lista_cartas = document.getElementById("cartas_list_user");
+    drawCard(nuevaCarta, lista_cartas, card);
 
     //si el jugador no pierde con los puntos que le da la carta entra en el if
     if (!player0.checkLose(card.points)) {
@@ -102,7 +107,8 @@ next_card_button.addEventListener("click", () => {
         player0.addPoints(card.points);
 
         //dibuja puntos
-        drawPointsUser(player0);
+        let div = document.getElementById("puntosUser");
+        drawPoints(div, player0);
 
     } else {
 
@@ -110,10 +116,12 @@ next_card_button.addEventListener("click", () => {
         player0.addPoints(card.points);
 
         //dibuja puntos
-        drawPointsUser(player0);;
+        let div = document.getElementById("puntosUser");
+        drawPoints(div, player0);
 
         //si se pasa de puntos mostrara la ventana final
-        mostrarResul();
+        let div_resul = document.getElementById("resul");
+        mostrarResul(div_resul, null);
     }
 });
 ///////////////////////////////
@@ -128,46 +136,50 @@ end_turn_button.addEventListener("click", () => {
         //carta aleatoria
         let card = random_card();
         //dibuja carta
-        drawCardCpu(card);
+        let nuevaCarta = document.getElementById("CartaCentroCpu");
+        let lista_cartas = document.getElementById("cartas_list_cpu");
+        drawCard(nuevaCarta, lista_cartas, card);
 
         //si la cpu no pierde con los puntos que le da la carta entra en el if
         if (!player1.checkLose(card.points)) {
             //añadir puntos
             player1.addPoints(card.points);
             //dibujar puntos
-            drawPointsCpu(player1);
-
+            let div = document.getElementById("puntosCpu");
+            drawPoints(div, player1);
         } else {
             //añadir puntos
             player1.addPoints(card.points);
+
             //dibujar puntos
-            drawPointsCpu(player1);
+            let div = document.getElementById("puntosCpu");
+            drawPoints(div, player1);
             loseCPU = true;
         }
     }
 
-    //mostrar ventana fianl
-    mostrarResulCpu(loseCPU);
-});
-///////////////
-const mostrarResul = () => {
+    //mostrar ventana fian
     let div_resul = document.getElementById("resul");
-    div_resul.textContent = "HAS PERDIDO :(";
-    ocultarBotones();
-    div_resul.classList.remove("hidden");
+    mostrarResul(div_resul, loseCPU);
+});
+
+const mostrarResul = (div_resul, loseCpu) => {
+
+    if (loseCpu == null) {
+        div_resul.textContent = "HAS PERDIDO :(";
+        ocultarBotones();
+        div_resul.classList.remove("hidden");
+    } else {
+        if (loseCpu == false) {
+            div_resul.textContent = "HAS PERDIDO :(";
+        } else {
+            div_resul.textContent = "HAS GANADO :D";
+        }
+        ocultarBotones();
+        div_resul.classList.remove("hidden");
+    }
 };
 
-const mostrarResulCpu = (loseCpu) => {
-    let div_resul = document.getElementById("resul");
-    if (loseCpu == false) {
-        div_resul.textContent = "HAS PERDIDO :(";
-    } else {
-        div_resul.textContent = "HAS GANADO :D";
-    }
-    ocultarBotones();
-    div_resul.classList.remove("hidden");
-};
-//////////////////
 const random_card = () => {
     if (cards.length > 0) {
         let rand = Math.floor(Math.random() * cards.length);
@@ -177,27 +189,14 @@ const random_card = () => {
         return resul;
     }
 };
-/////////////////
-const drawCardUser = (card) => {
-    let nuevaCarta = document.getElementById("CartaCentroUser");
-    nuevaCarta.setAttribute("src", card.img);
 
-    let lista_cartas = document.getElementById("cartas_list_user");
+const drawCard = (nuevaCarta, lista_cartas, card) => {
+    nuevaCarta.setAttribute("src", card.img);
     let cartaPequeña = document.createElement("img");
     cartaPequeña.setAttribute("src", card.img);
     lista_cartas.appendChild(cartaPequeña);
 }
 
-const drawCardCpu = (card) => {
-    let nuevaCarta = document.getElementById("CartaCentroCpu");
-    nuevaCarta.setAttribute("src", card.img);
-
-    let lista_cartas = document.getElementById("cartas_list_cpu");
-    let cartaPequeña = document.createElement("img");
-    cartaPequeña.setAttribute("src", card.img);
-    lista_cartas.appendChild(cartaPequeña);
-}
-/////////////
 const ocultarBotones = () => {
     let boton1 = document.getElementById("next_card");
     let boton2 = document.getElementById("end_turn");
@@ -210,16 +209,6 @@ const ocultarBotones = () => {
     boton3.classList.remove("hidden");
 }
 
-
-///////////
-const drawPointsUser = (user) => {
-    let div = document.getElementById("puntosUser");
+const drawPoints = (div, user) => {
     div.textContent = "Puntos: " + user.points;
 }
-
-
-const drawPointsCpu = (user) => {
-    let div = document.getElementById("puntosCpu");
-    div.textContent = "Puntos: " + user.points;
-}
-///////////////
